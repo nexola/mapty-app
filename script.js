@@ -27,6 +27,26 @@ if (navigator.geolocation) {
           '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
       }).addTo(map);
 
+      map.on('click', function (e) {
+        console.log(e);
+        const { lat, lng } = e.latlng;
+        console.log(lat, lng);
+
+        L.marker([lat, lng])
+          .addTo(map)
+          .bindPopup(
+            L.popup({
+              maxWidth: 250,
+              minWidth: 100,
+              autoClose: false,
+              closeOnClick: false,
+              className: 'running-popup',
+            })
+          )
+          .setPopupContent('🚴 Atividade')
+          .openPopup();
+      });
+
       L.marker(coords)
         .addTo(map)
         .bindPopup('A pretty CSS popup.<br> Easily customizable.')
