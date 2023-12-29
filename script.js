@@ -77,12 +77,15 @@ class App {
   #mapZoomLevel = 13;
 
   constructor() {
+    // Pegar posição do usuário
     this.#getPosition();
 
+    // Pegar dados do local storage
+    this._getLocalStorage();
+
+    // Event handlers
     form.addEventListener('submit', this.#newWorkout.bind(this));
-
     inputType.addEventListener('change', this.#toggleElevationField);
-
     containerWorkouts.addEventListener('click', this._movToPopUp.bind(this));
   }
 
@@ -111,6 +114,10 @@ class App {
     }).addTo(this.#map);
 
     this.#map.on('click', this.#showForm.bind(this));
+
+    this.#workouts.forEach(w => {
+      this.renderWorkoutMarker(w);
+    });
   }
 
   #showForm(mapE) {
@@ -191,6 +198,9 @@ class App {
 
     // Limpar os input fields
     this.hideForm();
+
+    // Setar o armazenamento local para todos workouts
+    this._setLocalStorage();
   }
 
   renderWorkoutMarker(workout) {
@@ -282,7 +292,28 @@ class App {
       },
     });
 
-    workout.click();
+    // workout.click();
+  }
+
+  _setLocalStorage() {
+    localStorage.setItem('workouts', JSON.stringify(this.#workouts));
+  }
+
+  _getLocalStorage() {
+    const data = JSON.parse(localStorage.getItem('workouts'));
+
+    if (!data) return;
+
+    this.#workouts = data;
+
+    this.#workouts.forEach(w => {
+      this.renderWorkout(w);
+    });
+  }
+
+  reset() {
+    localStorage.removeItem('workouts');
+    location.reload();
   }
 }
 
