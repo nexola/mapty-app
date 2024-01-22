@@ -11,7 +11,7 @@ Projeto desenvolvido através do curso de Javascript ES6 do [Jonas Schmedtmann](
 ## Layout
 ![image](https://github.com/nexola/mapty-app/assets/103954392/e0161791-8945-4205-936d-08d6e287d634)
 
-## Arquitetura MVC
+## Arquitetura
 ![image](https://github.com/nexola/mapty-app/blob/main/Mapty-architecture-final.png)
 
 ## Flowchart
